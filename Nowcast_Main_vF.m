@@ -204,9 +204,6 @@ elseif do_eval == 1
     date_today = [Eval.data_update_lastyear,Eval.data_update_lastmonth]; % date of the data "freeze" for out-of-sample evaluation
 end
 
-% Add paths
-% addpath('./tools');
-% addpath('./dataset');
 namesave = strcat('sav_',date); % current date
 outputfolder = strcat('./output/',country.name,'/');
 rootfolder = cd;
