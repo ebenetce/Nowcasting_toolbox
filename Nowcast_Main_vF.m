@@ -205,8 +205,8 @@ elseif do_eval == 1
 end
 
 % Add paths
-addpath('./tools');
-addpath('./dataset');
+% addpath('./tools');
+% addpath('./dataset');
 namesave = strcat('sav_',date); % current date
 outputfolder = strcat('./output/',country.name,'/');
 rootfolder = cd;
