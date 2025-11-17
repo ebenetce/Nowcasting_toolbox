@@ -215,8 +215,8 @@ end
 
 % Prepare file names
 excel_datafile = strcat('data_',country.name); % Excel file containing data (if users use exceldata =1)
-excel_outputfile = strcat('./output/',country.name,'/',country.name,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
-Loop.excel_loopfile = strcat('./eval/',country.name,'/',country.name,'_',country.model,'_loop_',Loop.name_loop,'.xlsx'); % Excel file for loop over random models
+excel_outputfile = strcat('./nowcastingData/',country.name,'/',country.name,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+Loop.excel_loopfile = strcat('./nowcastingData/',country.name,'/',country.name,'_',country.model,'_loop_',Loop.name_loop,'.xlsx'); % Excel file for loop over random models
 newsfile = 'cur_nowcast.mat'; % compare news relative to this run
 
 % Check 1 - Matlab version compatibility
