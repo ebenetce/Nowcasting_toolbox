@@ -238,7 +238,7 @@ for n_iter_mod = 1:Loop.n_iter
         Loop.groups_sel{n_iter_mod,:} = num2str(groups(sel_var));
 
         % Preparing name for Excel file
-        excel_evalfile = strcat('./eval/',country.name,'/',country.name,'_',country.model,'_evaluation_',Loop.name_loop,'_',num2str(n_iter_mod),'.xlsx'); % Excel file for evaluation metrics
+        excel_evalfile = strcat('./Nowcasting/',country.name,'_',country.model,'_evaluation_',Loop.name_loop,'_',num2str(n_iter_mod),'.xlsx'); % Excel file for evaluation metrics
 
 
     elseif do_loop == 2 % then we take hyperparameters from pre-defined list
