@@ -205,7 +205,7 @@ elseif do_eval == 1
 end
 
 namesave = strcat('sav_',date); % current date
-outputfolder = strcat('./output/',country.name,'/');
+outputfolder = strcat('./nowcastingData/',country.name,'/');
 rootfolder = cd;
 
 % Update name of loop if do_loop == 2
