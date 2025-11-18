@@ -107,7 +107,7 @@ C = {'Bac','Now','For'};
 if do_loop == 0
 
     Loop.n_iter = 1;
-    excel_evalfile = strcat('./nowcastingData/',country.name,'_',country.model,'_evaluation.xlsx'); % Excel file for evaluation metrics
+    excel_evalfile = strcat('./nowcastingoutputData/',country.name,'_',country.model,'_evaluation.xlsx'); % Excel file for evaluation metrics
 
 elseif do_loop == 1
 

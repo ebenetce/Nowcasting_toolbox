@@ -48,7 +48,7 @@ clear
 %% 0. TOOLBOX SETTINGS (to be changed by the user)
 % -------------------------------------------------------------------------
 
-do_eval = 1;   % switch on the use of the toolbox
+do_eval = 0;   % switch on the use of the toolbox
                % 0 = nowcast
                % 1 = model evaluation      
 
@@ -58,11 +58,11 @@ do_loop = 1;   % switch on whether to loop over different models
                % 2 = custom loop over user-defined list of models (in Eval_list_mod.xlsx)
                % NB: if do_loop is 1 or 2 then do_eval is automatically set to 1          
 
-do_range = 0;  % switch on whether to run alternative models (obtained by disconnecting 1 or 2 groups of variables)
+do_range = 1;  % switch on whether to run alternative models (obtained by disconnecting 1 or 2 groups of variables)
                % 0 = no
                % 1 = yes (takes significantly longer to estimate)
 
-do_mae = 0;    % switch on how to compute the Mean Absolute Error (MAE) and Forecast Directional Accuracy (FDA) from past forecast errors
+do_mae = 1;    % switch on how to compute the Mean Absolute Error (MAE) and Forecast Directional Accuracy (FDA) from past forecast errors
                % 0 = take user-specified values (in code below)
                % 1 = compute based on past 10 years (takes significantly longer to estimate)
 
@@ -205,7 +205,7 @@ elseif do_eval == 1
 end
 
 namesave = strcat('sav_',date); % current date
-outputfolder = strcat('./nowcastingData/',country.name,'/');
+outputfolder = strcat('./nowcastingoutputData/');
 rootfolder = cd;
 
 % Update name of loop if do_loop == 2
@@ -215,8 +215,8 @@ end
 
 % Prepare file names
 excel_datafile = strcat('data_',country.name); % Excel file containing data (if users use exceldata =1)
-excel_outputfile = strcat('./nowcastingData/',country.name,'/',country.name,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
-Loop.excel_loopfile = strcat('./nowcastingData/',country.name,'_',country.model,'_loop_',Loop.name_loop,'.xlsx'); % Excel file for loop over random models
+excel_outputfile = strcat('./nowcastingTemplateData/',country.name,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+Loop.excel_loopfile = strcat('./nowcastingoutputData/',country.name,'_',country.model,'_loop_',Loop.name_loop,'.xlsx'); % Excel file for loop over random models
 newsfile = 'cur_nowcast.mat'; % compare news relative to this run
 
 % Check 1 - Matlab version compatibility
