@@ -58,11 +58,11 @@ do_loop = 1;   % switch on whether to loop over different models
                % 2 = custom loop over user-defined list of models (in Eval_list_mod.xlsx)
                % NB: if do_loop is 1 or 2 then do_eval is automatically set to 1          
 
-do_range = 1;  % switch on whether to run alternative models (obtained by disconnecting 1 or 2 groups of variables)
+do_range = 0;  % switch on whether to run alternative models (obtained by disconnecting 1 or 2 groups of variables)
                % 0 = no
                % 1 = yes (takes significantly longer to estimate)
 
-do_mae = 1;    % switch on how to compute the Mean Absolute Error (MAE) and Forecast Directional Accuracy (FDA) from past forecast errors
+do_mae = 0;    % switch on how to compute the Mean Absolute Error (MAE) and Forecast Directional Accuracy (FDA) from past forecast errors
                % 0 = take user-specified values (in code below)
                % 1 = compute based on past 10 years (takes significantly longer to estimate)
 
@@ -77,7 +77,7 @@ do_subset = 0; % switch on whether to take a sub-set of the input data
 
 % Country hyper-parameters
 country.name = 'Example1';
-country.model = 'DFM'; % either 'DFM' or 'BEQ' or 'BVAR'
+country.model = 'BEQ'; % either 'DFM' or 'BEQ' or 'BVAR'
 
 % Model specifications
 if strcmp(country.name,'Example1')
