@@ -56,11 +56,11 @@ package:
 
   script:
     - wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm 
-    - ./mpm install --products MATLAB --release ${MATLAB_RELEASE} --destination /opt/matlab/${MATLAB_RELEASE}
+    - ./mpm install --products MATLAB --release ${MATLAB_RELEASE} --destination /opt/matlab/${MATLAB_RELEASE} --no-gpu --no-jre
     - wget -q https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/glnxa64/matlab-batch
     - chmod +x matlab-batch
     - ln -s /opt/matlab/${MATLAB_RELEASE}/bin/matlab /usr/local/bin/matlab
-    - ./matlab-batch "buildtool archive('${CI_COMMIT_TAG}') -skip test"
+    - ./matlab-batch "buildtool"
     
   artifacts:
     when: always
