@@ -24,7 +24,7 @@ variables:
     - HTTP_CODE=$(curl --request GET "${URL}" --header "JOB-TOKEN:${CI_JOB_TOKEN}" --write-out "%{http_code}" -o /dev/null)
     - |
       if [[ "$HTTP_CODE" == "404" ]]; then 
-        curl --request PUT "$URL" --header "JOB-TOKEN:${CI_JOB_TOKEN}" --upload-file "${TOOLBOX_FILE}" 
+        curl --request PUT "$URL" --header "JOB-TOKEN:${CI_JOB_TOKEN}" --upload-file "releases/${TOOLBOX_FILE}" 
       else 
         echo "This toolbox version already exists"; 
         exit 1; 
