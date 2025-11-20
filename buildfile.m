@@ -22,6 +22,10 @@ function archiveTask(~)
 
 version = ver('nowcasting').Version;
 
+if ~isfolder('releases')
+    mkdir('releases')
+end
+
 here = fileparts(mfilename('fullpath'));
 opts = matlab.addons.toolbox.ToolboxOptions(fullfile(here, "tbx"), "ea810d61-9776-4d3d-b6ca-68072d5331b6");
 
@@ -45,6 +49,6 @@ opts.SupportedPlatforms.MatlabOnline = false;
 opts.MinimumMatlabRelease = "R2023a";
 opts.MaximumMatlabRelease = "";
 
-opts.OutputFile = "Nowcasting.mltbx";
+opts.OutputFile = "releases/Nowcasting.mltbx";
 matlab.addons.toolbox.packageToolbox(opts);
 end
