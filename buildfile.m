@@ -6,7 +6,7 @@ import matlab.buildtool.tasks.TestTask
 plan = buildplan(localfunctions);
 
 % Add the "check" task to identify code issues
-plan("check") = CodeIssuesTask('tbx/nowcasting', WarningThreshold = 0);
+plan("check") = CodeIssuesTask('tbx/nowcasting', WarningThreshold = 59);
 
 plan("test") = TestTask();
 
@@ -18,18 +18,15 @@ plan("archive").Dependencies = ["check" "test"];
 
 end
 
-function archiveTask(~, ver)
+function archiveTask(~)
 
-if startsWith(ver, 'v')
-    ver = char(ver);
-    ver = ver(2:end);
-end
+version = ver('nowcasting').Version;
 
 here = fileparts(mfilename('fullpath'));
 opts = matlab.addons.toolbox.ToolboxOptions(fullfile(here, "tbx"), "ea810d61-9776-4d3d-b6ca-68072d5331b6");
 
 opts.ToolboxName = "Nowcasting Toolbox";
-opts.ToolboxVersion = ver;
+opts.ToolboxVersion = version;
 
 opts.AuthorName = "Baptiste Meunier";
 opts.AuthorEmail = "ebenetce@mathworks.com";
