@@ -29,7 +29,7 @@ opts.ToolboxName = "Nowcasting Toolbox";
 opts.ToolboxVersion = version;
 
 opts.AuthorName = "Baptiste Meunier";
-opts.AuthorEmail = "ebenetce@mathworks.com";
+opts.AuthorEmail = "";
 opts.AuthorCompany = "European Central Bank";
 
 opts.Summary = "Nowcasting";
