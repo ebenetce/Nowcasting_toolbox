@@ -150,7 +150,7 @@ matrix_indiv_contrib(num_cell-2,1) = {'Contributions below relate to first predi
 
 
 %% Save the entire workspace in excel and store in the output folder
-common_save_excel(chartdata,quarterahead_chartdata,Par,excel_outputfile,newsfile,prev_news,groups_name,contrib,names_contrib,info_indiv_contrib,matrix_indiv_contrib,nameseries,fullnames,heatmap,datet,country,Res,groups,do_range,range,indxGDP);
+common_save_excel(chartdata,quarterahead_chartdata,Par,excel_outputfile,newsfile,prev_news,groups_name,contrib,names_contrib,info_indiv_contrib,matrix_indiv_contrib,nameseries,fullnames,heatmap,datet,country,Res,groups,settings.do_range,range,indxGDP);
 
 
 %% Save the entire workspace in matlab
