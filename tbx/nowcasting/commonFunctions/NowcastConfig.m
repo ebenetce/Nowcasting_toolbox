@@ -14,7 +14,7 @@ classdef NowcastConfig
         var_keep  (1,:) double = []
     end
 
-    properties (SetAccess = immutable)
+    properties
         Par  nowcast.settings.BasePar = nowcast.settings.DFMPar.empty()
         Loop nowcast.settings.Loop = nowcast.settings.Loop.empty() 
         MAE  nowcast.settings.MAE = nowcast.settings.MAE.empty()

@@ -1,4 +1,4 @@
-function er = modelEstimation(settings,flags)
+function er = estimate(settings,flags)
 
 %Consider name-value pairing
 arguments
@@ -16,6 +16,7 @@ country.model = settings.CountryModel;
 Eval = settings.Eval;
 Par = settings.Par;
 MAE = settings.MAE;
+Loop = settings.Loop;
 
 if settings.do_eval == 0
     date_today = [year(datetime("today")),month(datetime("today"))]; % today's date
@@ -24,8 +25,8 @@ elseif settings.do_eval == 1
 end
 
 % Prepare file names
-excel_datafile = strcat('data_',settings.countryName); % Excel file containing data (if users use exceldata =1)
-excel_outputfile = strcat('./tbx/nowcastingTemplateData/',settings.countryName,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+excel_datafile = strcat('data_',settings.CountryName); % Excel file containing data (if users use exceldata =1)
+excel_outputfile = strcat('./tbx/nowcastingTemplateData/',settings.CountryName,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
 [Par,xest,t_m,groups,nameseries,blocks,groups_name,fullnames,datet,Loop] = ...
         common_load_data(excel_datafile,flags.mon_freq,flags.quar_freq,flags.blocks_sheet,Par,flags.monthsAhead,settings.do_loop,date_today,Loop);
 
