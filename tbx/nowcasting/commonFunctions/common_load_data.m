@@ -1,4 +1,4 @@
-function[Par,xest,t_m,groups,nameseries,blocks,blocks_name,full_names,datet,Loop] = common_load_data(excel_datafile,mon_freq,quar_freq,blocks_sheet,Par_in,m,do_loop,date_today,Loop)
+function[Par,xest,t_m,groups,nameseries,blocks,blocks_name,full_names,datet,Loop] = common_load_data(excel_datafile,mon_freq,quar_freq,blocks_sheet,Par_in,m,do_loop,date_today,Loop_in)
 % This script loads data
 % fetching from Haver does not work currently
 % fetching should be from an excelsheet so exceldata should be 1 
@@ -52,7 +52,7 @@ function[Par,xest,t_m,groups,nameseries,blocks,blocks_name,full_names,datet,Loop
 
 % Set parameters
 Par = Par_in;
-
+Loop = Loop_in;
 
 %% Load data from Excel file
 
@@ -85,9 +85,9 @@ common_CheckDataAvailability(full_names);
 
 %% Convert dates
 
-[Year_m, Month_m] = datevec(datetime(B(5:end,1), 'InputFormat', 'MM/dd/yyyy'));
+[Year_m, Month_m] = datevec(datetime(B(5:end,1), 'InputFormat', 'dd/MM/yyyy'));
 t_m = [Year_m, Month_m];
-[Year_q, Month_q] = datevec(datetime(D(5:end,1), 'InputFormat', 'MM/dd/yyyy'));
+[Year_q, Month_q] = datevec(datetime(D(5:end,1), 'InputFormat', 'dd/MM/yyyy'));
 t_q = [Year_q, Month_q];
         
 

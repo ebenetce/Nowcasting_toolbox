@@ -1,4 +1,4 @@
-classdef MAE
+classdef MAE < nowcast.settings.NowcastObj
     % Additional input for mean absolute error
     properties
         Bac

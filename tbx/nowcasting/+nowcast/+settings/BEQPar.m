@@ -4,13 +4,12 @@ classdef BEQPar < nowcast.settings.BasePar
         lagM % number of lags for monthly regressor(s) (in quarterly terms). 0 = only contemporaneous.
         lagQ % number of lags for quarterly regressor(s) (in quarterly terms). 0 = only contemporaneous.
         lagY % number of lags for the endogenous variable (in quarterly terms). 0 = no lags of endogenous.
-        type % type of interpolation (see BEQ_estimate for details)
-        Dum  % dates of the dummies (year, month). Format should be a k x 2 matrix with k = number of dummies (each dummy on a row) and year / month in columns.
+        type % type of interpolation (see BEQ_estimate for details)        
     end
 
     methods
 
-        function obj = BEQPar(nvp)
+        function obj = BEQPar(nvp, nvp2)
             % Constructor for BEQPar class
             %
             % This function initializes the properties of a BEQ Parameter object.
@@ -30,14 +29,16 @@ classdef BEQPar < nowcast.settings.BasePar
                 nvp.lagQ (1,1) double = 1;
                 nvp.lagY (1,1) double = 1;
                 nvp.type (1,1) double = 901;
-                nvp.Dum (:,2) double = [2020,3; 2020,6; 2020,9];
+                nvp2.?nowcast.settings.BasePar;
             end
+
+            args = namedargs2cell(nvp2);
+            obj@nowcast.settings.BasePar(args{:})
 
             obj.lagM = nvp.lagM;
             obj.lagQ = nvp.lagQ;
             obj.lagY = nvp.lagY;
             obj.type = nvp.type;
-            obj.Dum = nvp.Dum;
         end
 
     end % methods

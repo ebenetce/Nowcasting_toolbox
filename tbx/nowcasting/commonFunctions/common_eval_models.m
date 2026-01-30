@@ -83,14 +83,14 @@ if do_loop == 1
     end
 
     % Check 4 - min start data and Eval data
-    if (Eval.eval_startyear < Loop.min_startyear) || (Eval.eval_startyear == Loop.min_startyear && Eval.eval_startmonth < Loop.startmonth)
-        error(['Loop: the minimum start date (Loop.min_startyear and Loop.startmonth) is before the starting date of the evaluation = ',num2str(Eval.eval_startyear),' M',num2str(Eval.eval_startmonth),'. Either set an earlier date for minimum estimation start date (Loop.min_startyear) or a later date for evaluation sample (Eval.eval_startyear)'])
+    if (Eval.startyear < Loop.min_startyear) || (Eval.startyear == Loop.min_startyear && Eval.startmonth < Loop.startmonth)
+        error(['Loop: the minimum start date (Loop.min_startyear and Loop.startmonth) is before the starting date of the evaluation = ',num2str(Eval.startyear),' M',num2str(Eval.startmonth),'. Either set an earlier date for minimum estimation start date (Loop.min_startyear) or a later date for evaluation sample (Eval.startyear)'])
     end
 
     % Check 5 - sufficient timespan for BEQ and BVAR
     if strcmp(country.model,'BEQ') || strcmp(country.model,'BVAR')
-        if (Eval.eval_startyear - Loop.max_startyear < 3)
-            error(['Loop: the maximum start date (Loop.max_startyear) is less than three years before starting year of the evaluation = ',num2str(Eval.eval_startyear),'. This would lead to a high proporition of non-feasible models. It is advised to set either an earlier date for maximum estimation start date (Loop.max_startyear) or a later date for evaluation sample (Eval.eval_startyear) with at least 3 years between the two.'])
+        if (Eval.startyear - Loop.max_startyear < 3)
+            error(['Loop: the maximum start date (Loop.max_startyear) is less than three years before starting year of the evaluation = ',num2str(Eval.startyear),'. This would lead to a high proporition of non-feasible models. It is advised to set either an earlier date for maximum estimation start date (Loop.max_startyear) or a later date for evaluation sample (Eval.startyear) with at least 3 years between the two.'])
         end
     end
 
@@ -109,7 +109,7 @@ if do_loop == 0
     Loop.n_iter = 1;
     %SHG
     %CHANGE BACK LATER
-    excel_evalfile = strcat(country.name,'_',country.model,'_evaluation.xlsx'); % Excel file for evaluation metrics
+    excel_evalfile = strcat('./eval/',country.name,'/',country.name,'_',country.model,'_evaluation.xlsx'); % Excel file for evaluation metrics
 
 elseif do_loop == 1
 
@@ -240,9 +240,7 @@ for n_iter_mod = 1:Loop.n_iter
         Loop.groups_sel{n_iter_mod,:} = num2str(groups(sel_var));
 
         % Preparing name for Excel file
-        %SHG
-        %CHANGE THIS LATER
-        excel_evalfile = strcat(country.name,'_',country.model,'_evaluation_',Loop.name_loop,'_',num2str(n_iter_mod),'.xlsx'); % Excel file for evaluation metrics
+        excel_evalfile = strcat('./eval/',country.name,'/',country.name,'_',country.model,'_evaluation_',Loop.name_loop,'_',num2str(n_iter_mod),'.xlsx'); % Excel file for evaluation metrics
 
 
     elseif do_loop == 2 % then we take hyperparameters from pre-defined list
@@ -319,8 +317,8 @@ for n_iter_mod = 1:Loop.n_iter
     end
 
     % Initial and end date of the out-of-sample
-    start_eval = find(t_m(:,1)==Eval.eval_startyear & t_m(:,2)==Eval.eval_startmonth); 
-    end_eval = find(t_m(:,1)==Eval.eval_endyear & t_m(:,2)==Eval.eval_endmonth);
+    start_eval = find(t_m(:,1)==Eval.startyear & t_m(:,2)==Eval.startmonth); 
+    end_eval = find(t_m(:,1)==Eval.endyear & t_m(:,2)==Eval.endmonth);
 
     % Structure of missing values (NaN)
     xact = xest(1:end-m,:); % removing last m NaN

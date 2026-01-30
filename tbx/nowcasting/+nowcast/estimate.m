@@ -8,15 +8,19 @@ arguments
     flags.quar_freq (1,1) string = "Quarterly";
     flags.blocks_sheet (1,1) string = "blocks";
     flags.monthsAhead double = 6;
+    flags.excel_datafile = strcat('data_',settings.CountryName); % Excel file containing data (if users use exceldata =1)
+    flags.excel_outputfile = strcat('./output/',settings.CountryName,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+    flags.excel_loopfile = strcat('./eval/',settings.CountryName,'/',settings.CountryName,'_',settings.CountryModel,'_loop_',settings.Loop.name_loop,'.xlsx'); % Excel file for loop over random models
+    flags.outputfolder (1,1) string = "output"
 end
 
 country.name = settings.CountryName;
 country.model = settings.CountryModel;
 
-Eval = settings.Eval;
-Par = settings.Par;
-MAE = settings.MAE;
-Loop = settings.Loop;
+Eval = settings.Eval.toStruct();
+Par = settings.Par.toStruct();
+MAE = settings.MAE.toStruct();
+Loop = settings.Loop.toStruct();
 
 if settings.do_eval == 0
     date_today = [year(datetime("today")),month(datetime("today"))]; % today's date
@@ -25,8 +29,13 @@ elseif settings.do_eval == 1
 end
 
 % Prepare file names
-excel_datafile = strcat('data_',settings.CountryName); % Excel file containing data (if users use exceldata =1)
-excel_outputfile = strcat('./tbx/nowcastingTemplateData/',settings.CountryName,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+Loop.excel_loopfile = flags.excel_loopfile;
+loopFld = fileparts(Loop.excel_loopfile);
+if ~isfolder(loopFld)
+    mkdir(loopFld)
+end
+excel_outputfile = flags.excel_outputfile;
+excel_datafile = flags.excel_datafile;
 [Par,xest,t_m,groups,nameseries,blocks,groups_name,fullnames,datet,Loop] = ...
         common_load_data(excel_datafile,flags.mon_freq,flags.quar_freq,flags.blocks_sheet,Par,flags.monthsAhead,settings.do_loop,date_today,Loop);
 
@@ -107,9 +116,9 @@ if settings.do_eval == 0
 
     % Computes news relative to nowcast and forecast in 'newsfile'
     newsfile = 'cur_nowcast.mat'; % compare news relative to this run
-    namesave = strcat('sav_',date); % current date
-    outputfolder = strcat('.');
-    rootfolder = cd;
+    namesave = strcat('sav_', string(datetime('today'))); % current date
+    outputfolder = flags.outputfolder;
+    rootfolder = nowcast.root;
 
     switch settings.countryModel
         case 'DFM'

@@ -10,7 +10,7 @@ classdef NowcastConfig
         do_range  (1,1) logical = false
         do_mae    (1,1) logical = false
         do_subset (1,1) logical = false
-        do_covid  (1,1) double {mustBeMember(do_covid,[0 1 2 3 4])} = 0
+        do_Covid  (1,1) double {mustBeMember(do_Covid,[0 1 2 3 4])} = 0
         var_keep  (1,:) double = []
     end
 
@@ -62,7 +62,7 @@ classdef NowcastConfig
             % 3 = outlier-correction (with outliers replaces by NaN)
             % 4 = add dummies (one for Mar. 2020 and one for June 2020)
             obj.do_subset = flags.do_subset;
-            obj.do_covid  = flags.do_Covid;
+            obj.do_Covid  = flags.do_Covid;
 
             %Assign do_eval=1 if do_loop is selected
             if flags.do_loop > 0

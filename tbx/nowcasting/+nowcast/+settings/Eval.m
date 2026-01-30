@@ -1,4 +1,4 @@
-classdef Eval
+classdef Eval < nowcast.settings.NowcastObj
     % Additional inputs for model evaluation
     % NB: if do_eval=1
 
@@ -36,7 +36,7 @@ classdef Eval
             obj.endyear = nvp.endyear;
             obj.endmonth = nvp.endmonth;
         end
+
     end
     
-
 end

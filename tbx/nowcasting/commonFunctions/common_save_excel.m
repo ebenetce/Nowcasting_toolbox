@@ -64,11 +64,12 @@ function [] = common_save_excel(chartdata,quarterahead_chartdata,Par,excel_outpu
 % - indxGDP [scalar] = index of the last available value for the target
 %
 
-% Checking that Excel output file exists
-if ~(exist(excel_outputfile,'file') == 2)
-    error('The specified excel_outputfile does not exist. Check the name and run the Mainfile again.')
+% Create excel outputfile from template
+outFolder = fileparts(excel_outputfile);
+if ~isfolder(outFolder)
+    mkdir(outFolder)
 end
-
+copyfile(fullfile(nowcast.root, 'nowcastingTemplateData\tracking.xlsx'), excel_outputfile);
 
 %% Prepare parameters
 

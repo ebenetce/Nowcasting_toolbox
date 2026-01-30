@@ -1,4 +1,4 @@
-classdef Loop
+classdef Loop < nowcast.settings.NowcastObj
     % Additional inputs for model evaluation
     % NB: if do_eval=1
 
@@ -30,6 +30,8 @@ classdef Loop
         list_name (1,1) string % Name of excel with list of models (has to be located in folder 'eval/country.name/')
         name_customloop % Name of the loop
         alter_covid     % Switch to 1 to alter between Covid corrections (0 tests the list of models)
+
+        excel_loopfile (1,1) string = string(missing)
     end
 
     methods
@@ -61,8 +63,8 @@ classdef Loop
 
                 % nvp.excel_loopfile (1,1) double = strcat('./',countryName,'_',countryModel,'_loop_',nvp.name_loop,'.xlsx'); % Excel file for loop over random models
                 nvp.list_name (1,1) string = "Eval_list.xlsx"      % Name of excel with list of models (has to be located in folder 'eval/country.name/')
-                nvp.name_customloop (1,1) string = "customloop";   % Name of the loop
-                nvp.alter_covid (1,1) double = 1;                  % Switch to 1 to alter between Covid corrections (0 tests the list of models)
+                nvp.name_customloop (1,1) string = "customloop"    % Name of the loop
+                nvp.alter_covid (1,1) double = 1                   % Switch to 1 to alter between Covid corrections (0 tests the list of models)
             end
 
             for f = fields(nvp)'
@@ -70,6 +72,7 @@ classdef Loop
             end
 
         end
+        
     end
     
 end
