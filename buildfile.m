@@ -8,7 +8,7 @@ plan = buildplan(localfunctions);
 % Add the "check" task to identify code issues
 plan("check") = CodeIssuesTask('tbx/nowcasting', WarningThreshold = 59);
 
-plan("test") = TestTask();
+plan("test") = TestTask(SourceFiles='tbx', TestResults = 'tests/results.html', CodeCoverageResults = 'tests/coverage.html');
 
 % Make the "archive" task the default task in the plan
 plan.DefaultTasks = "archive";

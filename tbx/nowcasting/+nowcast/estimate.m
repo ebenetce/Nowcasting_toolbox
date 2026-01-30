@@ -34,10 +34,10 @@ loopFld = fileparts(Loop.excel_loopfile);
 if ~isfolder(loopFld)
     mkdir(loopFld)
 end
-excel_outputfile = flags.excel_outputfile;
+excel_outputfile = flags.excel_outputfile; %#ok<NASGU>
 excel_datafile = flags.excel_datafile;
 [Par,xest,t_m,groups,nameseries,blocks,groups_name,fullnames,datet,Loop] = ...
-        common_load_data(excel_datafile,flags.mon_freq,flags.quar_freq,flags.blocks_sheet,Par,flags.monthsAhead,settings.do_loop,date_today,Loop);
+        common_load_data(excel_datafile,flags.mon_freq,flags.quar_freq,flags.blocks_sheet,Par,flags.monthsAhead,settings.do_loop,date_today,Loop); %#ok<ASGLU>
 
 % Subset data if required by user
 if settings.do_subset == 1
@@ -112,13 +112,13 @@ if settings.do_eval == 0
     Res.groups = groups;
     Res.series = nameseries;
     Res.name_descriptor = fullnames;
-    GDP_track = [datet Res.X_sm(:,end)];
+    GDP_track = [datet Res.X_sm(:,end)]; %#ok<NASGU>
 
     % Computes news relative to nowcast and forecast in 'newsfile'
     newsfile = 'cur_nowcast.mat'; % compare news relative to this run
     namesave = strcat('sav_', string(datetime('today'))); % current date
     outputfolder = flags.outputfolder;
-    rootfolder = nowcast.root;
+    rootfolder = nowcast.root; %#ok<NASGU>
 
     switch settings.countryModel
         case 'DFM'
