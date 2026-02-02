@@ -56,28 +56,41 @@ Loop = Loop_in;
 
 %% Load data from Excel file
 
-[A,B] = xlsread(excel_datafile,mon_freq);
-[C,D] = xlsread(excel_datafile,quar_freq);
-[blocks,~] = xlsread(excel_datafile,blocks_sheet);
-[~,G] = xlsread(excel_datafile,'Groups');
-transf_m = A(1,:);                  % load the transformation used for monthly series
-transf_q = C(1,:);                  % load the transformation used for quarterly series
-groups = [A(2,:) C(2,:)];           % load group definition
-nameseries = [B(3,2:end) D(3,2:end)];
-full_names = [B(4,2:end) D(4,2:end)];
+% [A,B] = xlsread(excel_datafile,mon_freq);
+tbA = readtimetable(excel_datafile, Sheet=mon_freq, Range = 'A4', VariableNamingRule = 'preserve');
+tbA(all(ismissing(tbA{:,:}), 2), :) = []; % Remove empty rows from tbA
+tbB = readcell(excel_datafile, Sheet = mon_freq, Range = '1:3');
+
+% [C,D] = xlsread(excel_datafile,quar_freq);
+tbC = readtimetable(excel_datafile, Sheet=quar_freq, Range = 'A4', VariableNamingRule = 'preserve');
+tbC(all(ismissing(tbC{:,:}), 2), :) = []; % Remove empty rows from tbC
+tbD = readcell(excel_datafile, Sheet = quar_freq, Range = '1:3');
+
+blocks = readmatrix(excel_datafile, Sheet=blocks_sheet, Range = 'B2');
+
+G = readcell(excel_datafile, Sheet = 'Groups');
+
+transf_m = [tbB{1,2:end}];          % load the transformation used for monthly series
+transf_q = [tbD{1,2:end}];          % load the transformation used for quarterly series
+
+groups = [ [tbB{2,2:end}], [tbD{2,2:end}]];  % load group definition
+
+nameseries = [tbB(3, 2:end), tbD(3, 2:end)];
+full_names = [tbA.Properties.VariableNames, tbC.Properties.VariableNames];
+
 blocks_name = G;
 
-% Check dimensions
-if size(A,1) ~= size(B,1)
-    error("Dimensions of dates and series do not match for monthly data. Please check the input file")
-end
-if size(C,1) ~= size(D,1)
-    error("Dimensions of dates and series do not match for quarterly data. Please check the input file")
-end
+% % Check dimensions
+% if size(A,1) ~= size(B,1)
+%     error("Dimensions of dates and series do not match for monthly data. Please check the input file")
+% end
+% if size(C,1) ~= size(D,1)
+%     error("Dimensions of dates and series do not match for quarterly data. Please check the input file")
+% end
 
 % Data matrices untransformed
-seriesm = A(5:end,:);                  % monthly
-seriesq = C(5:end,:);                  % quarterly
+seriesm = tbA{:,:};                  % monthly
+seriesq = tbC{:,:};                  % quarterly
 
 % Check for discontinued and suspended series
 common_CheckDataAvailability(full_names);              
@@ -85,9 +98,9 @@ common_CheckDataAvailability(full_names);
 
 %% Convert dates
 
-[Year_m, Month_m] = datevec(datetime(B(5:end,1), 'InputFormat', 'dd/MM/yyyy'));
+[Year_m, Month_m] = datevec(tbA.Time);
 t_m = [Year_m, Month_m];
-[Year_q, Month_q] = datevec(datetime(D(5:end,1), 'InputFormat', 'dd/MM/yyyy'));
+[Year_q, Month_q] = datevec(tbC.Time);
 t_q = [Year_q, Month_q];
         
 
