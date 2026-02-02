@@ -8,14 +8,20 @@ arguments
     flags.quar_freq (1,1) string = "Quarterly";
     flags.blocks_sheet (1,1) string = "blocks";
     flags.monthsAhead double = 6;
-    flags.excel_datafile = strcat('data_',settings.CountryName); % Excel file containing data (if users use exceldata =1)
-    flags.excel_outputfile = strcat('./output/',settings.CountryName,'_tracking.xlsx'); % Excel file containing tracking and news decomposition
+    flags.excel_datafile = "data_" + settings.CountryName; % Excel file containing data (if users use exceldata =1)
+    flags.excel_outputfile = settings.CountryName + "_tracking.xlsx"; % Excel file containing tracking and news decomposition
     flags.excel_loopfile = strcat('./eval/',settings.CountryName,'/',settings.CountryName,'_',settings.CountryModel,'_loop_',settings.Loop.name_loop,'.xlsx'); % Excel file for loop over random models
     flags.outputfolder (1,1) string = "output"
 end
 
 country.name = settings.CountryName;
 country.model = settings.CountryModel;
+
+% Computes news relative to nowcast and forecast in 'newsfile'
+newsfile = 'cur_nowcast.mat'; % compare news relative to this run
+namesave = "sav_" + string(datetime('today')); % current date
+outputfolder = fullfile(flags.outputfolder, country.name);
+rootfolder = nowcast.root; %#ok<NASGU>
 
 Eval = settings.Eval.toStruct();
 Par = settings.Par.toStruct();
@@ -34,7 +40,7 @@ loopFld = fileparts(Loop.excel_loopfile);
 if ~isfolder(loopFld)
     mkdir(loopFld)
 end
-excel_outputfile = flags.excel_outputfile; %#ok<NASGU>
+excel_outputfile = fullfile(outputfolder, flags.excel_outputfile); %#ok<NASGU>
 excel_datafile = flags.excel_datafile;
 [Par,xest,t_m,groups,nameseries,blocks,groups_name,fullnames,datet,Loop] = ...
         common_load_data(excel_datafile,flags.mon_freq,flags.quar_freq,flags.blocks_sheet,Par,flags.monthsAhead,settings.do_loop,date_today,Loop); %#ok<ASGLU>
@@ -99,7 +105,7 @@ if settings.do_eval == 0
     datet_in = datet;
 
     % Run the estimation
-    switch settings.countryModel
+    switch settings.CountryModel
         case 'DFM'
             Res = DFM_estimate(xest_out,Par);
         case 'BEQ'
@@ -112,15 +118,9 @@ if settings.do_eval == 0
     Res.groups = groups;
     Res.series = nameseries;
     Res.name_descriptor = fullnames;
-    GDP_track = [datet Res.X_sm(:,end)]; %#ok<NASGU>
+    GDP_track = [datet Res.X_sm(:,end)]; %#ok<NASGU>    
 
-    % Computes news relative to nowcast and forecast in 'newsfile'
-    newsfile = 'cur_nowcast.mat'; % compare news relative to this run
-    namesave = strcat('sav_', string(datetime('today'))); % current date
-    outputfolder = flags.outputfolder;
-    rootfolder = nowcast.root; %#ok<NASGU>
-
-    switch settings.countryModel
+    switch settings.CountryModel
         case 'DFM'
             [news_results,news_results_fcst,table_now,table_fcst,prev_news] = ...
                 DFM_News_Mainfile(outputfolder,newsfile,groups_name,xest_out,Res,Par,namesave,datet,nameseries,country.model);

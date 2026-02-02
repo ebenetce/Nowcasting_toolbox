@@ -164,20 +164,20 @@ Qend = Par.qend;
 clear Qend_* namesave_* flag* store* Nowcast_position pos Yearq check_spelling
 
 % Autorename the workspace if the name already exists
-[namesave] = common_autorename(namesave,outputfolder,rootfolder);
-save(strcat(outputfolder,namesave)); 
+[namesave] = common_autorename(namesave,outputfolder);
+save(fullfile(outputfolder,namesave)); 
 
 if strcmp('cur_nowcast.mat',newsfile)
     % Save old nowcast as old_nowcast
-    if exist(strcat(outputfolder,'cur_nowcast.mat'),'file') == 2
-        movefile(strcat(outputfolder,'cur_nowcast.mat'),strcat(outputfolder,'old_nowcast.mat'));
+    if exist(fullfile(outputfolder,'cur_nowcast.mat'),'file') == 2
+        movefile(fullfile(outputfolder,'cur_nowcast.mat'),fullfile(outputfolder,'old_nowcast.mat'));
     end
     
     % Save current output as cur_nowcast
-    save(strcat(outputfolder,'cur_nowcast')); 
+    save(fullfile(outputfolder,'cur_nowcast')); 
 end
 
 % Create a vintage the output Excel for the nowcast date
-vintage_excel = [strrep(namesave,'.mat',''),'_',country.name,'_tracking.xlsx'];
+vintage_excel = strrep(namesave,'.mat','') + "_" + country.name + "_tracking.xlsx";
 filename_vintage = fullfile(outputfolder, vintage_excel);
 copyfile(excel_outputfile,filename_vintage);

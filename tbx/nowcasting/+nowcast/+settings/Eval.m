@@ -36,6 +36,7 @@ classdef Eval < nowcast.settings.NowcastObj
             obj.endyear = nvp.endyear;
             obj.endmonth = nvp.endmonth;
             obj.gdp_rel = nvp.gdp_rel;
+            
         end
 
     end
