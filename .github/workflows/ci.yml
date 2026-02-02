@@ -4,7 +4,6 @@ name: Unit Tests
 # Add [skip ci] to the commit to skip running this job
 on:
   push:
-    # My development branch was called draft162
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
