@@ -22,18 +22,3 @@ jobs:
 
       - name: Run build
         uses: matlab-actions/run-build@v2
-    
-      - name: Upload toolbox
-        uses: actions/upload-artifact@v4
-        with:
-          name: matlab-toolbox
-          path: ./releases/Nowcasting.mltbx
-          if-no-files-found: ignore
-
-       # Upload test reports
-       - name: Upload Artifact
-         if: success() || failure()
-         uses: actions/upload-pages-artifact@v3
-         with:
-           # upload entire directory
-           path: tests/reports
