@@ -56,14 +56,10 @@ Loop = Loop_in;
 
 %% Load data from Excel file
 
-% [A,B] = xlsread(excel_datafile,mon_freq);
 tbA = readtimetable(excel_datafile, Sheet=mon_freq, Range = 'A4', VariableNamingRule = 'preserve');
-tbA(all(ismissing(tbA{:,:}), 2), :) = []; % Remove empty rows from tbA
 tbB = readcell(excel_datafile, Sheet = mon_freq, Range = '1:3');
 
-% [C,D] = xlsread(excel_datafile,quar_freq);
 tbC = readtimetable(excel_datafile, Sheet=quar_freq, Range = 'A4', VariableNamingRule = 'preserve');
-tbC(all(ismissing(tbC{:,:}), 2), :) = []; % Remove empty rows from tbC
 tbD = readcell(excel_datafile, Sheet = quar_freq, Range = '1:3');
 
 blocks = readmatrix(excel_datafile, Sheet=blocks_sheet, Range = 'B2');
