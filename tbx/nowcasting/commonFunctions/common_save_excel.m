@@ -69,7 +69,7 @@ outFolder = fileparts(excel_outputfile);
 if ~isfolder(outFolder)
     mkdir(outFolder)
 end
-copyfile(fullfile(nowcast.root, 'nowcastingTemplateData\tracking.xlsx'), excel_outputfile);
+copyfile(fullfile(nowcast.root, 'nowcastingTemplateData','tracking.xlsx'), excel_outputfile);
 
 %% Prepare parameters
 
